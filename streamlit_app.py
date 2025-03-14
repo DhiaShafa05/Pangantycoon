@@ -10,7 +10,7 @@ bahan_baku = {
     "Ubi Ungu": {"protein": 4, "serat": 8, "karbohidrat": 21, "lemak": 0.5, "vitamin": 9, "kalori": 120, "biaya": 4, "inovasi": 7, "keamanan": 9},
     "Keju": {"protein": 9, "serat": 2, "karbohidrat": 2, "lemak": 9, "vitamin": 4, "kalori": 200, "biaya": 8, "inovasi": 5, "keamanan": 7},
     "Rumput Laut": {"protein": 6, "serat": 9, "karbohidrat": 12, "lemak": 1, "vitamin": 10, "kalori": 50, "biaya": 6, "inovasi": 8, "keamanan": 9},
-    "Tempe": {"protein": 10, "serat": 8, "karbohidrat": 14, "lemak": 5, "vitamin": 7, "kalori": 160, "biaya": 5, "inovasi": 9, "keamanan": 10}
+    "Tempe": {"protein": 10, "serat": 8, "karbohidrat": 14, "lemak": 5, "vitamin": 7, "kalori": 160, "biaya": 5, "inovasi": 9, "keamanan": 10},
     "Bayam": {"protein": 3, "serat": 6, "karbohidrat": 4, "lemak": 0.5, "vitamin": 10, "kalori": 40, "biaya": 3, "inovasi": 7, "keamanan": 9},
     "Tahu": {"protein": 8, "serat": 5, "karbohidrat": 2, "lemak": 4, "vitamin": 6, "kalori": 100, "biaya": 4, "inovasi": 6, "keamanan": 8},
     "Jagung": {"protein": 5, "serat": 5, "karbohidrat": 19, "lemak": 1, "vitamin": 6, "kalori": 130, "biaya": 4, "inovasi": 7, "keamanan": 9},
