@@ -4,13 +4,18 @@ st.title("🎈 Selamat Datang di Pangan Tycoon")
 st.write(
     "Let's play the game, try to make new innovation"
 )
-# Data bahan baku
+# Data bahan baku dengan keterangan gizi dan kalori
 bahan_baku = {
-    "Kacang Hijau": {"protein": 8, "serat": 7, "biaya": 5, "inovasi": 6, "keamanan": 8},
-    "Ubi Ungu": {"protein": 4, "serat": 8, "biaya": 4, "inovasi": 7, "keamanan": 9},
-    "Keju": {"protein": 9, "serat": 2, "biaya": 8, "inovasi": 5, "keamanan": 7},
-    "Rumput Laut": {"protein": 6, "serat": 9, "biaya": 6, "inovasi": 8, "keamanan": 9},
-    "Tempe": {"protein": 10, "serat": 8, "biaya": 5, "inovasi": 9, "keamanan": 10}
+    "Kacang Hijau": {"protein": 8, "serat": 7, "karbohidrat": 17, "lemak": 1, "vitamin": 8, "kalori": 150, "biaya": 5, "inovasi": 6, "keamanan": 8},
+    "Ubi Ungu": {"protein": 4, "serat": 8, "karbohidrat": 21, "lemak": 0.5, "vitamin": 9, "kalori": 120, "biaya": 4, "inovasi": 7, "keamanan": 9},
+    "Keju": {"protein": 9, "serat": 2, "karbohidrat": 2, "lemak": 9, "vitamin": 4, "kalori": 200, "biaya": 8, "inovasi": 5, "keamanan": 7},
+    "Rumput Laut": {"protein": 6, "serat": 9, "karbohidrat": 12, "lemak": 1, "vitamin": 10, "kalori": 50, "biaya": 6, "inovasi": 8, "keamanan": 9},
+    "Tempe": {"protein": 10, "serat": 8, "karbohidrat": 14, "lemak": 5, "vitamin": 7, "kalori": 160, "biaya": 5, "inovasi": 9, "keamanan": 10}
+    "Bayam": {"protein": 3, "serat": 6, "karbohidrat": 4, "lemak": 0.5, "vitamin": 10, "kalori": 40, "biaya": 3, "inovasi": 7, "keamanan": 9},
+    "Tahu": {"protein": 8, "serat": 5, "karbohidrat": 2, "lemak": 4, "vitamin": 6, "kalori": 100, "biaya": 4, "inovasi": 6, "keamanan": 8},
+    "Jagung": {"protein": 5, "serat": 5, "karbohidrat": 19, "lemak": 1, "vitamin": 6, "kalori": 130, "biaya": 4, "inovasi": 7, "keamanan": 9},
+    "Alpukat": {"protein": 2, "serat": 7, "karbohidrat": 9, "lemak": 15, "vitamin": 9, "kalori": 200, "biaya": 7, "inovasi": 8, "keamanan": 9},
+    "Telur": {"protein": 13, "serat": 0, "karbohidrat": 1, "lemak": 11, "vitamin": 5, "kalori": 155, "biaya": 6, "inovasi": 6, "keamanan": 9}
 }
 
 # Data metode pengolahan
@@ -23,7 +28,7 @@ metode_pengolahan = {
 }
 
 # Judul aplikasi
-st.title("🍽 Game Inovasi Produk Pangan - Mix Bahan")
+st.title("🍽 Game Inovasi Produk Pangan - Mix Bahan dengan Info Gizi")
 
 # Pilih dua bahan baku
 bahan1 = st.selectbox("Pilih Bahan Baku 1:", list(bahan_baku.keys()))
@@ -51,6 +56,12 @@ if st.button("🔍 Lihat Hasil Inovasi"):
         skor_keamanan = min(data_bahan1["keamanan"], data_bahan2["keamanan"])
         biaya_produksi = data_bahan1["biaya"] + data_bahan2["biaya"] + data_metode["biaya"]
 
+        # Menghitung total gizi dan kalori
+        total_karbohidrat = (data_bahan1["karbohidrat"] + data_bahan2["karbohidrat"]) / 2
+        total_lemak = (data_bahan1["lemak"] + data_bahan2["lemak"]) / 2
+        total_vitamin = (data_bahan1["vitamin"] + data_bahan2["vitamin"]) / 2
+        total_kalori = data_bahan1["kalori"] + data_bahan2["kalori"]
+
         keuntungan = harga_jual - biaya_produksi
 
         # Menampilkan hasil
@@ -65,6 +76,13 @@ if st.button("🔍 Lihat Hasil Inovasi"):
         st.write(f"*Harga Jual:* Rp{harga_jual}K")
         st.write(f"*Keuntungan:* Rp{keuntungan}K")
 
+        # Menampilkan info gizi
+        st.subheader("📊 Informasi Gizi:")
+        st.write(f"*Karbohidrat:* {total_karbohidrat}g")
+        st.write(f"*Lemak:* {total_lemak}g")
+        st.write(f"*Vitamin:* {total_vitamin}/10")
+        st.write(f"*Kalori:* {total_kalori} kcal")
+
         # Evaluasi produk
         if skor_gizi > 7 and skor_rasa > 7 and skor_inovasi > 7 and skor_keamanan > 8 and keuntungan > 5:
             st.success("🎉 Produk campuranmu luar biasa! Potensial jadi tren baru!")
@@ -72,3 +90,5 @@ if st.button("🔍 Lihat Hasil Inovasi"):
             st.info("👍 Kombinasi ini cukup baik, tapi bisa lebih inovatif!")
         else:
             st.warning("🤔 Campuran ini kurang menarik, coba kombinasi yang lain.")
+
+
