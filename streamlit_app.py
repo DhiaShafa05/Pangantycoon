@@ -4,7 +4,7 @@ st.title("🎈 Selamat Datang di Pangan Tycoon")
 st.write(
     "Let's play the game, try to make new innovation"
 )
-# Data bahan baku dengan info gizi lengkap
+# Data bahan baku dengan informasi gizi lengkap
 bahan_baku = {
     "Kacang Hijau": {"protein": 8, "karbohidrat": 17, "lemak": 1, "vitamin": 8, "mineral": 7, "kalori": 150, "biaya": 5, "inovasi": 6, "keamanan": 8},
     "Ubi Ungu": {"protein": 4, "karbohidrat": 21, "lemak": 0.5, "vitamin": 9, "mineral": 8, "kalori": 120, "biaya": 4, "inovasi": 7, "keamanan": 9},
@@ -14,7 +14,7 @@ bahan_baku = {
     "Alpukat": {"protein": 2, "karbohidrat": 9, "lemak": 15, "vitamin": 9, "mineral": 7, "kalori": 200, "biaya": 7, "inovasi": 8, "keamanan": 9}
 }
 
-# Data metode pengolahan yang lebih bervariasi
+# Data metode pengolahan
 metode_pengolahan = {
     "Panggang": {"rasa": 8, "inovasi": 6, "biaya": 3},
     "Fermentasi": {"rasa": 7, "inovasi": 9, "biaya": 4},
@@ -28,26 +28,33 @@ metode_pengolahan = {
     "Blansir": {"rasa": 6, "inovasi": 5, "biaya": 2}
 }
 
-# Fungsi memberikan saran dan penjelasan
-def beri_saran(skor, tipe):
-    if tipe == "gizi":
-        if skor > 8:
-            return "✅ Gizi sangat baik dan seimbang."
-        elif skor > 5:
-            return "👍 Gizi cukup baik, tapi masih bisa ditingkatkan."
-        else:
-            return "⚠ Gizi kurang baik, coba tambah bahan yang lebih bernutrisi."
-    if tipe == "rasa":
-        return "😋 Rasa enak dan disukai!" if skor > 7 else "🙂 Rasa cukup, bisa lebih baik."
-    if tipe == "inovasi":
-        return "🌟 Inovasi kreatif dan unik!" if skor > 7 else "✨ Inovasi standar, coba eksplorasi lebih."
-    if tipe == "keamanan":
-        return "✅ Produk aman dikonsumsi." if skor > 7 else "⚠ Perlu perhatian pada keamanan dan kebersihan."
-    if tipe == "keuntungan":
-        return "💰 Menguntungkan!" if skor > 5 else "📉 Keuntungan minim, cek biaya dan harga jual."
+# Fungsi memberikan saran yang lebih beragam dan berfokus pada kesehatan
+def beri_saran(gizi, kalori, keamanan):
+    saran = []
+
+    if gizi > 8:
+        saran.append("✅ Gizi sangat baik dan seimbang, cocok untuk kesehatan jangka panjang.")
+    elif gizi > 5:
+        saran.append("👍 Gizi cukup baik, tapi sebaiknya tambahkan bahan yang lebih kaya vitamin dan mineral.")
+    else:
+        saran.append("⚠ Gizi kurang baik, coba tambahkan lebih banyak sayuran atau sumber protein nabati.")
+
+    if kalori > 200:
+        saran.append("⚠ Kalori cukup tinggi, perhatikan porsi agar tetap seimbang.")
+    elif kalori < 100:
+        saran.append("✅ Kalori rendah, baik untuk diet sehat.")
+    else:
+        saran.append("👍 Kalori dalam batas wajar.")
+
+    if keamanan > 8:
+        saran.append("✅ Produk aman dikonsumsi tanpa risiko kesehatan.")
+    else:
+        saran.append("⚠ Perhatikan kebersihan dan pengolahan agar tetap higienis.")
+
+    return saran
 
 # Judul aplikasi
-st.title("🍽 Game Inovasi Produk Pangan")
+st.title("🍽 Game Inovasi Produk Pangan - Versi Sehat")
 
 # Pilihan bahan dan metode
 bahan1 = st.selectbox("Pilih Bahan Baku 1:", list(bahan_baku.keys()))
@@ -63,34 +70,35 @@ if st.button("🔍 Lihat Hasil Inovasi"):
         data2 = bahan_baku[bahan2]
         metode_data = metode_pengolahan[metode]
 
-        # Perhitungan skor dan info gizi
+        # Perhitungan gizi
         skor_gizi = (data1["protein"] + data2["protein"] + data1["vitamin"] + data2["vitamin"] + data1["mineral"] + data2["mineral"]) / 6
-        skor_rasa = metode_data["rasa"]
-        skor_inovasi = (data1["inovasi"] + data2["inovasi"] + metode_data["inovasi"]) / 3
-        skor_keamanan = min(data1["keamanan"], data2["keamanan"])
-        biaya_produksi = data1["biaya"] + data2["biaya"] + metode_data["biaya"]
-
         total_kalori = data1["kalori"] + data2["kalori"]
         total_protein = data1["protein"] + data2["protein"]
         total_karbohidrat = data1["karbohidrat"] + data2["karbohidrat"]
         total_vitamin = (data1["vitamin"] + data2["vitamin"]) / 2
         total_mineral = (data1["mineral"] + data2["mineral"]) / 2
+        skor_keamanan = min(data1["keamanan"], data2["keamanan"])
 
+        biaya_produksi = data1["biaya"] + data2["biaya"] + metode_data["biaya"]
         keuntungan = harga_jual - biaya_produksi
 
         # Menampilkan hasil
         st.subheader("🔍 Hasil Inovasi Produk Pangan:")
-        st.write(f"*Gizi:* {skor_gizi:.1f}/10 - {beri_saran(skor_gizi, 'gizi')}")
-        st.write(f"*Rasa:* {skor_rasa}/10 - {beri_saran(skor_rasa, 'rasa')}")
-        st.write(f"*Inovasi:* {skor_inovasi:.1f}/10 - {beri_saran(skor_inovasi, 'inovasi')}")
-        st.write(f"*Keamanan:* {skor_keamanan}/10 - {beri_saran(skor_keamanan, 'keamanan')}")
+        st.write(f"*Gizi:* {skor_gizi:.1f}/10")
         st.write(f"*Kalori Total:* {total_kalori} kcal")
         st.write(f"*Protein:* {total_protein} g")
         st.write(f"*Karbohidrat:* {total_karbohidrat} g")
         st.write(f"*Vitamin:* {total_vitamin:.1f}/10")
         st.write(f"*Mineral:* {total_mineral:.1f}/10")
+        st.write(f"*Keamanan:* {skor_keamanan}/10")
         st.write(f"*Biaya Produksi:* Rp{biaya_produksi}K")
-        st.write(f"*Keuntungan:* Rp{keuntungan}K - {beri_saran(keuntungan, 'keuntungan')}")
+        st.write(f"*Keuntungan:* Rp{keuntungan}K")
+
+        # Memberikan saran yang lebih spesifik
+        st.subheader("💡 Saran untuk Produk Inovasi:")
+        saran = beri_saran(skor_gizi, total_kalori, skor_keamanan)
+        for item in saran:
+            st.write(f"- {item}")
 
 st.markdown("---")
 st.caption("💡 Dibuat dengan Python dan Streamlit")
